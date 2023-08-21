@@ -1,0 +1,24 @@
+name: API Test Otv 3
+
+on:
+  schedule:
+    - cron: '* * * * *'
+  workflow_dispatch:
+
+jobs:
+  automated-api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run "25721243-0f46eed3-44f4-4159-ab89-64eecc0208e8" -e "25721243-2cbd3513-2b5f-4b9a-8ba7-1e4489047cde"
+      - name: Notify
+        if: ${{ failure() }}
+        run: |
+          curl --location 'https://trigger.esp8266-server.de/api/?id=2859&hash=c0abcd10598f95c63b08571cb9b54a15'
