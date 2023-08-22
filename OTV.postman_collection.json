@@ -112,6 +112,7 @@
 					"script": {
 						"exec": [
 							"var text = pm.response.text();",
+							"console.log(text);",
 							"if (pm.response.code == 200 && !text.includes(\"<!DOCTYPE html>\") && !text.includes(\"Request Rejected\")) {",
 							"    var errors = pm.response.json().wizardInfo.errors;",
 							"    console.log('Error count:');",
@@ -522,6 +523,7 @@
 					"script": {
 						"exec": [
 							"var text = pm.response.text();",
+							"console.log(text);",
 							"if (pm.response.code == 200 && !text.includes(\"<!DOCTYPE html>\") && !text.includes(\"Request Rejected\")) {",
 							"    pm.test(\"Error message exists\", function () {",
 							"        var jsonData = pm.response.json();",
@@ -925,6 +927,19 @@
 		},
 		{
 			"name": "Check slots",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var text = pm.response.text();",
+							"console.log(text);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
